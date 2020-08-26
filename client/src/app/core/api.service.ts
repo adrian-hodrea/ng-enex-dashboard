@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { serverUrl } from './config';
 
 import { Observable } from 'rxjs';
 import {
@@ -10,9 +11,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  // private apiUrl = '/api';
-  private apiUrl = 'http://192.168.11.4:3000';
-
+  private apiUrl = `http://${serverUrl}`;
   constructor(private http: HttpClient) {}
 
   public get({ endpoint, headers }: ApiMethodPayload): Observable<any> {

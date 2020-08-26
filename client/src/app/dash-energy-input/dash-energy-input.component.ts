@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { DashEnergyInputService } from './dash-energy-input.service';
+import { prepareDataForEnergyInputComponent } from '../core/helper-functions/prepareRootData';
+import { PieteComponent, dashEnergyInputData } from '../core/models/dash-energy-input.models';
 
 @Component({
   selector: 'app-dash-energy-input',
@@ -30,12 +32,29 @@ export class DashEnergyInputComponent {
     })
   );
 
+  private fromDatePri: number = 16830720;
+  private toDatePri: number = 16873920;
+  public data:dashEnergyInputData =  {
+    energyData: [],
+    indirData: 0  
+  };
+
+  public isFetching: boolean = false;
+
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     public dashEnergyInputService: DashEnergyInputService
-    ) {}
+  ) { }
 
-   ngOnInit() {
-     this.dashEnergyInputService.fetchData();
-   } 
+  ngOnInit() {
+    this.dashEnergyInputService.fetchData(this.fromDatePri, this.toDatePri)
+      .subscribe(results => {
+        const pieteComponents:PieteComponent[] = prepareDataForEnergyInputComponent(results[0], results[1], results[2]);
+        this.data.energyData = pieteComponents;
+        this.data.indirData = results[3];
+      });
+    console.log("this.data", this.data);
+
+  };
 }
