@@ -3,10 +3,13 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
-      <div class="logo"></div>
+      <div class="logo" [routerLink]="'/'"></div>
     </mat-toolbar>
     <mat-nav-list>
-      <a *ngFor="let item of menuItems" mat-list-item [routerLink]="'/'+item">{{item | titlecase}}</a>
+      <a *ngFor="let item of menuItems" 
+      mat-list-item [routerLink]="['./' + item ]">
+      {{item | titlecase}}
+    </a>
     </mat-nav-list>
   </mat-sidenav>
 

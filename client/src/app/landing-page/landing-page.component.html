@@ -1,0 +1,39 @@
+<div class="wrapper logo">
+  <div class="form-wrapper">
+
+    <h1>Alegeti perioada</h1>
+
+    <form #periodForm="ngForm" noValidate>
+
+      <div class="from__date">
+        <label htmlFor="fromDate">De la data</label>
+        <input [(ngModel)]="period.fromDate" type="date" name="fromDate" #fdt="ngModel" noValidate required
+          [class.invalid]="fdtValidated===false" (change)="handleDateChange($event)" />
+        <small [class.displayElement]="!fdtValidated">
+          Data introdusa nu este inceput de luna.
+          Introduceti o data care reprezinta inceput de luna!
+        </small>
+      </div>
+
+      <div class="to__date">
+        <label htmlFor="toDate">Pana la data</label>
+        <input [(ngModel)]="period.toDate" type="date" name="toDate" #tdt="ngModel" noValidate required
+          [class.invalid]="tdtValidated===false" (change)="handleDateChange($event)" />
+        <small [class.displayElement]="!tdtValidated">
+          Data introdusa nu este sfarsit de luna.
+          Introduceti o data care reprezinta sfarsit de luna!
+        </small>
+      </div>
+      <small
+        [class.displayElement]="intervalCorect===false && fdtValidated===true && tdtValidated===true && fdt.touched && tdt.touched">
+        Data de inceput este mai mare decat data de sfarsit !!!
+      </small>
+      <div class="goToDashboard">
+        <div class="buttonWrapper">
+          <div class="btn" [routerLink]="'/nav'" [class.clickable]="intervalCorect===true && fdtValidated===true && tdtValidated===true">
+            Go to DASHBOARD
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>

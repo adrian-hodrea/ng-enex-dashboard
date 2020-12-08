@@ -10,10 +10,10 @@ import { PieteComponent } from '../../../core/models/dash-energy-input.models';
 export class EnergyInputTypeComponent implements OnInit {
 
   @Input()energySourceData:PieteComponent;
+  
   constructor() { }
 
   ngOnInit(): void {
-    console.log("energySourceData:",this.energySourceData)
   }
 
 }

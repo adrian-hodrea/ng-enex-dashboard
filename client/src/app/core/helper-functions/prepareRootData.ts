@@ -1,10 +1,13 @@
 
 import kpiDisplayData from './data/kpi-formating-data.js';
-import { PieteComponent, TranzactiiEnergieInput, Piete, TipTranzactie, Kpi } from '../models/dash-energy-input.models';
+import { PieteComponent, TranzactiiEnergieInput, Piete, TipTranzactie, Kpi, ChIndir } from '../models/dash-energy-input.models';
 
 
 const prepareDataForEnergyInputComponent =
-    (bodyData: TranzactiiEnergieInput[], piete: Piete[], tipuriTranzactii: TipTranzactie[]) => {
+    (bodyData: TranzactiiEnergieInput[],
+        piete: Piete[],
+        tipuriTranzactii: TipTranzactie[],
+        chIndir: ChIndir) => {
         /* Parcurg toate tipurile de piete si pentru fiecare 
         tip de piata iau fiecare tip de tranzactie si apoi populez datele de afisat */
         let pieteComponents: PieteComponent[] = [];
@@ -13,7 +16,7 @@ const prepareDataForEnergyInputComponent =
                 sourceTitle: '',
                 kpis: []
             };
-            pieteData.sourceTitle = `Intrari ${piata.adi_piatades}`;
+            pieteData.sourceTitle = piata.adi_piatades;
             let kpisTotal: Kpi = {
                 id: 999,
                 title: '',
@@ -21,8 +24,8 @@ const prepareDataForEnergyInputComponent =
                 valoare: 0,
                 costMediu: 0,
                 icon: '',
-                backgroundColor: ''
-
+                backgroundColor: '',
+                backgroundColorNoQuant: ''
             };
             kpisTotal.title = `Total ${piata.adi_piatades}`,
 
@@ -30,7 +33,8 @@ const prepareDataForEnergyInputComponent =
                 kpiDisplayData.forEach(kpiDD => {
                     if (kpiDD.id === 999) {
                         kpisTotal.icon = kpiDD.icon;
-                        kpisTotal.backgroundColor = `var(${kpiDD.backgroundColorFrom}),  var(${kpiDD.backgroundColorTo})`;
+                        kpisTotal.backgroundColor = kpiDD.backgroundColorFrom;
+                        kpisTotal.backgroundColorNoQuant = kpiDD.backgroundColorNoQuant;
                     }
                 })
 
@@ -42,7 +46,8 @@ const prepareDataForEnergyInputComponent =
                     valoare: 0,
                     costMediu: 0,
                     icon: '',
-                    backgroundColor: ''
+                    backgroundColor: '',
+                    backgroundColorNoQuant: ''
                 }
 
                 /* iau datele din tranzactii, daca exista 
@@ -62,7 +67,8 @@ const prepareDataForEnergyInputComponent =
                 kpiDisplayData.forEach(kpiDD => {
                     if (kpiDD.id === tipTr.tip_tranzactie_id) {
                         kpi.icon = kpiDD.icon;
-                        kpi.backgroundColor = `var(${kpiDD.backgroundColorFrom}),  var(${kpiDD.backgroundColorTo})`;
+                        kpi.backgroundColor = kpiDD.backgroundColorFrom;
+                        kpi.backgroundColorNoQuant = kpiDD.backgroundColorNoQuant;
                     }
                 })
 
@@ -74,7 +80,7 @@ const prepareDataForEnergyInputComponent =
         }) // end of piete.forEach
 
         let pieteDataTotals: PieteComponent = {
-            sourceTitle: `Intrari TOTALE`,
+            sourceTitle: `TOTALE`,
             kpis: []
         }
         //pieteDataTotals.kpis = new Array(...pieteComponents[0].kpis);
@@ -111,7 +117,40 @@ const prepareDataForEnergyInputComponent =
 
         pieteComponents.push(pieteDataTotals);
 
-        return pieteComponents;
+        /* Generez obiectul KPI pentru pozitia de costuri fixe administrative */
+        const intrariTotaleInputType = pieteComponents[pieteComponents.length - 1].kpis;
+        const intrariTotaleKPI = intrariTotaleInputType[intrariTotaleInputType.length - 1];
+        let costuriFixeKpi = {
+            id: 0,
+            title: "Costuri FIXE(ADM)",
+            cantitate: intrariTotaleKPI.cantitate,
+            valoare: chIndir.suma_indir,
+            costMediu: chIndir.suma_indir / intrariTotaleKPI.cantitate,
+            icon: "fas fa-stamp",
+            backgroundColor: 'rgb(209, 58, 223)',
+            backgroundColorNoQuant: ''
+        }
+        /* Generez obiectul KPI pentru pozitia de costuri totale */
+
+        let costTotalKpi = {
+            id: 0,
+            title: "Cost TOTAL",
+            cantitate: intrariTotaleKPI.cantitate,
+            valoare: intrariTotaleKPI.valoare + chIndir.suma_indir,
+            costMediu: (intrariTotaleKPI.valoare + chIndir.suma_indir) / intrariTotaleKPI.cantitate,
+            icon: "fas fa-funnel-dollar",
+            backgroundColor: '#006187',
+            backgroundColorNoQuant: ''
+        }
+
+
+        console.log('pieteComponents:', pieteComponents);
+        let rootData = {
+            energyData: pieteComponents,
+            costuriFixeKpi: costuriFixeKpi,
+            costTotalKpi: costTotalKpi
+        }
+        return rootData;
     }
 
 export { prepareDataForEnergyInputComponent };

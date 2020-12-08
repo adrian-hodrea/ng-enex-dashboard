@@ -1,9 +1,13 @@
-<div className="energy__input__type">
-    <div className="energy__input__type__title">{{energySourceData.sourceTitle}}</div>
+<div class="energy__input__type">
+    <div class="energy__input__type__title">
+        <span>Intrari</span>
+        <span>
+            {{energySourceData.sourceTitle}}
+        </span>
+    </div>
     <app-energy-input-kpi 
-        *ngFor="let kpi of energySourceData.kpis"
+        *ngFor="let kpi of energySourceData.kpis" 
         [kpiData]="kpi"
         >
-
     </app-energy-input-kpi>
 </div>

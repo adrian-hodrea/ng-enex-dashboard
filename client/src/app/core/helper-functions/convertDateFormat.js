@@ -6,6 +6,6 @@ const convertDateFormat = (inputDate) => {
     return convertedDay;
 }
 
-export default convertDateFormat;
+export { convertDateFormat };
 
 

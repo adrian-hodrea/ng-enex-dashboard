@@ -1,0 +1,50 @@
+.energy__input__kpi {
+    margin: 8px 8px 8px 8px;
+    border-radius: 5px;
+    min-width: 220px;
+    color: var(--tile-font-color);
+    padding: 7px;
+    font-size: 11px;
+   // background-color: lightseagreen;
+} 
+
+.energy__input__kpi:hover {
+    box-shadow: 5px 5px 5px grey;
+    margin-left: 6px;
+    margin-right: 10px;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--tile-font-color);
+    font-weight: 500;
+    font-size: 14px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+tbody {
+    vertical-align: bottom;
+}
+
+tr > td:first-child {
+    width: 60%;
+}
+
+tr > td:nth-child(2) {
+   text-align: right;
+   width: 25%;
+}
+
+tr > td:last-child {
+    padding-left: 3px;
+ }
+ 
+.total-font {
+    font-size: 24px;
+}
+
+.total-color {
+    color: rgb(30, 255, 0)
+}

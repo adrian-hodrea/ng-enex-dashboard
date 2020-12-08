@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { dashEnergyInputData, Kpi } from '../../../core/models/dash-energy-input.models';
+
 
 @Component({
   selector: 'app-energy-input-data',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./energy-input-data.component.scss']
 })
 export class EnergyInputDataComponent implements OnInit {
+  @Input() energyInputData: dashEnergyInputData;
 
-  constructor() { }
+  constructor() {
+    console.log("this.energyInputData constructor:", this.energyInputData);
+  }
 
   ngOnInit(): void {
-  }
+  };
 
 }

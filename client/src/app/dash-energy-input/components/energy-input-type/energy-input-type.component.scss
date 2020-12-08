@@ -1,0 +1,22 @@
+  .energy__input__type:hover > .energy__input__type__title {
+    color: var(--enex-red) ;
+  }
+  
+  .energy__input__type__title {
+    padding: 8px;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .energy__input__type__title > span:first-of-type {
+    color: var(--enex-dark-blue)
+  } 
+
+  .energy__input__type__title > span:last-of-type {
+    color: var(--enex-red)
+  } 
+
+    

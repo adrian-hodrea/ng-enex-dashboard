@@ -1,1 +1,32 @@
-<p>energy-input-data works!</p>
+<div class="energy__input__data">
+
+    <div *ngIf="energyInputData" class="type_container">
+        <app-energy-input-type class="energy__input__type" *ngFor="let energyType of energyInputData.energyData"
+            [energySourceData]="energyType">
+        </app-energy-input-type>
+    </div>
+
+    <div class="indir_container">
+
+        <div class="energy__input__type indir__total__container">
+            <div class="indir__total__title">
+                Costuri FIXE/Administrative
+            </div>
+            <app-energy-input-kpi *ngIf="energyInputData" class="energy__input__kpi ch__indir"
+                [kpiData]="energyInputData.costuriFixeKpi">
+            </app-energy-input-kpi>
+        </div>
+
+        <div class="energy__input__type indir__total__container">
+            <div class="indir__total__title">
+                Cost TOTAL
+            </div>
+            <app-energy-input-kpi *ngIf="energyInputData" class="energy__input__kpi ch__indir"
+                [kpiData]="energyInputData.costTotalKpi"
+                [totalFlag]="true">
+            </app-energy-input-kpi>
+        </div>
+
+    </div>
+
+</div>

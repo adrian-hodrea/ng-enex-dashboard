@@ -9,7 +9,7 @@ export class DashEnergyInputService {
 
   constructor(private apiService: ApiService) { }
 
-  fetchData(fdt: number, tdt: number): Observable<[[],[],[],number]> {
+  fetchData(fdt: number, tdt: number): Observable<[[],[],[],any]> {
 
     let piete = this.apiService.get({ endpoint: 'piete' });
 

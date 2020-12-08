@@ -3,7 +3,9 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { DashEnergyInputService } from './dash-energy-input.service';
 import { prepareDataForEnergyInputComponent } from '../core/helper-functions/prepareRootData';
-import { PieteComponent, dashEnergyInputData } from '../core/models/dash-energy-input.models';
+import { dashEnergyInputData } from '../core/models/dash-energy-input.models';
+import { DataTransferService } from '../core/services/data-transfer.service';
+import { Period, periodPri } from '../core/models/dash-energy-input.models';
 
 @Component({
   selector: 'app-dash-energy-input',
@@ -12,49 +14,52 @@ import { PieteComponent, dashEnergyInputData } from '../core/models/dash-energy-
 })
 export class DashEnergyInputComponent {
   /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+  cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
+        return {
+          columns: 1,
+          miniCard: { cols: 1, rows: 1 },
+          chart: { cols: 1, rows: 2 },
+          table: { cols: 1, rows: 4 },
+        };
       }
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
+      return {
+        columns: 3,
+        miniCard: { cols: 1, rows: 1 },
+        chart: { cols: 1, rows: 2 },
+        table: { cols: 3, rows: 5 },
+      };
     })
   );
 
-  private fromDatePri: number = 16830720;
-  private toDatePri: number = 16873920;
-  public data:dashEnergyInputData =  {
-    energyData: [],
-    indirData: 0  
+  public data: dashEnergyInputData;
+  public isFetching: boolean = true;
+  public intervalPriFormat:periodPri = {
+    fromDate: null,
+    toDate: null
   };
-
-  public isFetching: boolean = false;
-
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public dashEnergyInputService: DashEnergyInputService
-  ) { }
-
+    public dashEnergyInputService: DashEnergyInputService,
+    public dataService: DataTransferService) 
+    { 
+      this.intervalPriFormat = dataService.intervalPriFormat;
+     }
   ngOnInit() {
-    this.dashEnergyInputService.fetchData(this.fromDatePri, this.toDatePri)
-      .subscribe(results => {
-        const pieteComponents:PieteComponent[] = prepareDataForEnergyInputComponent(results[0], results[1], results[2]);
-        this.data.energyData = pieteComponents;
-        this.data.indirData = results[3];
-      });
-    console.log("this.data", this.data);
+    this.prepareData();
+}
 
-  };
+prepareData() {
+    this.dashEnergyInputService.fetchData(this.intervalPriFormat.fromDate, this.intervalPriFormat.toDate)
+    .subscribe(results => {
+      const rootData: dashEnergyInputData = prepareDataForEnergyInputComponent(results[0], results[1], results[2],  results[3]);
+      this.data = rootData;
+      setTimeout(() => {
+        this.isFetching = false;
+      }, 1500);
+    });
+  }
 }

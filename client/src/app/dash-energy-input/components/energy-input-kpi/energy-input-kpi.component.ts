@@ -7,10 +7,12 @@ import { Kpi } from '../../../core/models/dash-energy-input.models';
   styleUrls: ['./energy-input-kpi.component.scss']
 })
 export class EnergyInputKpiComponent implements OnInit {
-  @Input() kpiData:Kpi
-  constructor() { }
+  @Input() kpiData:Kpi;
+  @Input() totalFlag: boolean;
+
+  constructor() {
+   }
 
   ngOnInit(): void {
   }
-
 }

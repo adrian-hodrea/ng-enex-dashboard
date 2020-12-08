@@ -7,4 +7,4 @@ const checkFirstDayOfMonth = (date) => {
     }
 }
 
-export default checkFirstDayOfMonth;
+export { checkFirstDayOfMonth } ;

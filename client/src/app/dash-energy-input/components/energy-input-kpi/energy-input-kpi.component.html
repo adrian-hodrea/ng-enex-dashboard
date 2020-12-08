@@ -1,1 +1,28 @@
-<p>{{kpiData | json}}</p>
+<div class="energy__input__kpi"
+    [style.backgroundColor]="kpiData.cantitate != 0 ? kpiData.backgroundColor : kpiData.backgroundColorNoQuant">
+
+    <div class="title">
+        <div>{{kpiData.title}}</div>
+        <i [class]="kpiData.icon"></i>
+    </div>
+
+    <table>
+        <tbody>
+            <tr>
+                <td>Valoare</td>
+                <td>{{kpiData.valoare | number:'1.2-2'}}</td>
+                <td>RON</td>
+            </tr>
+            <tr>
+                <td>Cantitate</td>
+                <td>{{kpiData.cantitate | number:'1.2-2'}}</td>
+                <td>MWh</td>
+            </tr>
+            <tr>
+                <td [ngClass]="{'total-font': totalFlag, 'total-color': totalFlag}">Cost mediu</td>
+                <td [ngClass]="{'total-font': totalFlag, 'total-color': totalFlag}">{{kpiData.costMediu | number:'1.2-2'}}</td>
+                <td [ngClass]="{'total-color': totalFlag}">RON/MWh</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

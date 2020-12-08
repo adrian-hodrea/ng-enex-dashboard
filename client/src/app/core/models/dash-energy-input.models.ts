@@ -28,7 +28,8 @@ export interface Kpi {
     valoare: number,
     costMediu: number,
     icon: string,
-    backgroundColor: string
+    backgroundColor: string,
+    backgroundColorNoQuant: string
 }
 
 export interface PieteComponent {
@@ -38,5 +39,16 @@ export interface PieteComponent {
 
 export interface dashEnergyInputData {
     energyData: PieteComponent[],
-    indirData: number
+    costuriFixeKpi: Kpi,
+    costTotalKpi: Kpi
+}
+
+export interface Period {
+    fromDate: Date,
+    toDate: Date 
+}
+
+export interface periodPri {
+    fromDate: number,
+    toDate: number 
 }

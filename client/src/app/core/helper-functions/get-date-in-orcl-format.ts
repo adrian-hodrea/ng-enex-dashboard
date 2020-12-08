@@ -8,4 +8,4 @@ const getDateInOrclFormat = (date) => {
     } 
 }
 
-export default getDateInOrclFormat;
+export  { getDateInOrclFormat };

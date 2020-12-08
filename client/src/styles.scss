@@ -2,3 +2,95 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+    --enex-light-blue: rgb(126, 202, 247);
+    --enex-light-blue-transparent: rgba(126, 202, 247, 0.8);
+    --enex-dark-blue: #006187;
+    --enex-red: #ed3236;
+
+    --cant-ferme-color-from:rgb(98, 28, 209);
+    --cant-ferme-color-to:#4587f8;
+    --cant-ferme-color-no-quant: rgba(98, 28, 209, 0.3); 
+  
+    --cant-variabile-color-from:rgb(252, 87, 29);
+    --cant-variabile-color-to:#f2ab30;
+    --cant-variabile-color-no-quant: rgba(252, 87, 29, 0.3);
+
+  
+    --cant-trading-color-from:rgb(4, 156, 78);
+    --cant-trading-color-to:#93c83e;
+    --cant-trading-color-no-quant: rgba(4, 156, 78, 0.3); 
+
+  
+    --cant-echilibrare-color-from:rgb(240, 21, 107);
+    --cant-echilibrare-color-to:#ff6902;
+    --cant-echilibrare-color-no-quant: rgba(240, 21, 107, 0.3); 
+
+  
+    --cant-totale-color-from:rgb(85, 83, 84);
+    --cant-totale-color-to:#9c9a9b;
+    --cant-totale-color-no-quant: rgba(85, 83, 84, 0.3); 
+
+  
+    --title-font-color:#656566;
+    --tile-font-color:white;
+  
+    --ch-indir-color-from:#d13adf;
+    --ch-indir-color-to:#d13adf;
+  
+    --cost-total-color-from:#996c0a;
+    --cost-total-color-to:#996c0a;
+  
+    --background-color:#7ecaf7;
+    --group-background-color:#dbdfe0;
+
+
+
+/* variables from Concedii medicale app */
+
+    --font-color-black: #444343;
+    --default-color: #0B0A0A;
+    --main-color: #4abff1;
+    --from-gradient-body-color: #80c4e7;
+    --to-gradient-body-color: #2b607e;
+    --icon-color: #a9de35;
+    --menu-color: #e5e8ed;
+    --mainMenu-hover-color: #ffffff;
+    --subMenu-hover-color: #bcc8cf;
+    --tr-hover-color: #d6ebf6;
+    --edit-row-color: #fce1b7;
+    --required-field-color: rgba(240,128,128,0.4);
+    --menuItemTypeM-color: #b758ce;
+    --menuItemTypeF-color: #2e7ea3;
+    --menuItemTypeR-color: #06942a;
+    --btnBackgroundHover : #3481ab;
+    --btnTextPainting: #afdaf3;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+table, tr {
+    width: 100%;
+  }
+  
+
+  /*  Charts   */ 
+
+  .chartContainer canvas {
+    max-height: 300px;
+    width: auto;
+}
+
+.chartContainer{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
