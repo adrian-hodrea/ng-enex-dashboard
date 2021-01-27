@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { DataTransferService } from '../core/services/data-transfer.service';
+import { Period, periodPri } from '../core/models/dash-energy-input.models';
+
 
 @Component({
   selector: 'app-nav',
@@ -11,6 +14,10 @@ import { map, shareReplay } from 'rxjs/operators';
 export class NavComponent {
 
   public menuItems:string[] = ['energy-input', 'sales', 'orders', 'customers', 'products'];
+  public intervalPriFormat:periodPri = {
+    fromDate: null,
+    toDate: null
+  };
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -18,6 +25,11 @@ export class NavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public dataService: DataTransferService) 
+    {
+      this.intervalPriFormat = dataService.intervalPriFormat;
+    }
 
 }
